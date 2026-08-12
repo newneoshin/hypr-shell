@@ -1,0 +1,79 @@
+// system-control.scss
+window.SystemControl {
+  background: transparent;
+  font-family: var(--ui-font-mono);
+
+  * {
+    margin: 0;
+  }
+
+  .sys-card {
+    background: var(--ui-color-bg);
+    box-shadow: var(--ui-shadow);
+    margin: 0 var(--ui-shadow-space) var(--ui-shadow-space) 0;
+    padding: var(--ui-space-2);
+    // NotificationSidebar 변수를 몰래 빌려쓰던 걸, 같은 의미의 공유 토큰으로 명시적 교체
+    min-height: var(--ui-overlay-max-height);
+  }
+
+  flowboxchild {
+    padding: 0;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .sys-option-button {
+    border: 1px solid var(--ui-color-border-secondary);
+    min-height: var(--ui-sys-option-button-height);
+    min-width: var(--ui-sys-option-button-width);
+    background: var(--ui-color-bg);
+
+    &:hover,
+    &.focused {
+      background: var(--ui-color-bg-inverted);
+      .content {
+        color: var(--ui-color-fg-inverted);
+      }
+    }
+
+    > .content {
+      color: var(--ui-color-fg);
+      font-size: var(--ui-font-size-md);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .sys-options {
+    > .content {
+      color: var(--ui-color-fg);
+      font-size: var(--ui-font-size-lg);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .workspace {
+    border: 1px solid var(--ui-color-border-secondary);
+    color: var(--ui-color-fg);
+    background: var(--ui-color-bg);
+    min-width: var(--ui-sys-workspace-width);
+    min-height: var(--ui-sys-workspace-height);
+    padding: 0 var(--ui-sys-workspace-padding);
+
+    &:hover,
+    &.focused {
+      background: var(--ui-color-bg-inverted);
+      color: var(--ui-color-fg-inverted);
+    }
+
+    > .title {
+      font-size: var(--ui-font-size-md);
+      font-weight: var(--ui-font-weight-bold);
+    }
+
+    > .content {
+      font-size: var(--ui-font-size-sm);
+      color: var(--ui-color-fg-secondary);
+    }
+  }
+}

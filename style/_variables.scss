@@ -1,0 +1,96 @@
+// _variables.scss
+@use "sass:math";
+
+$figma-scale: 1;
+
+@function figma($value) {
+  @return math.div($value, $figma-scale) * 1px;
+}
+
+// GTK CSS는 box-sizing: border-box를 지원 안 해서, min-width/min-height는
+// content-box 기준이야. border/padding처럼 "계산으로 정확히 예측 가능한"
+// 여백은 이 함수로 상쇄해.
+@function content-box-size($target, $border-width: 0, $padding: 0) {
+  @return figma($target - ($border-width + $padding) * 2);
+}
+
+// 위 공식과 달리, border/padding 계산만으로는 설명 안 되는 여백 보정.
+// GTK이 컴포넌트를 렌더링하는 과정에서 (폰트 metric, 위젯 자체의 내재적
+// 최소 크기 등으로) 지정한 크기보다 자연스럽게 더 크게 그려지는 경우,
+// 실제로 띄워놓고 눈으로 맞춘 경험적 보정값. 다른 값으로 "정리"하지 말고,
+// 화면에서 다시 실측해서 갱신할 것.
+@function tuned-size($target, $offset) {
+  @return figma($target - $offset);
+}
+
+:root {
+  // ===== Primitive colors =====
+  --ui-color-fg: #000000;
+  --ui-color-bg: #ffffff;
+  --ui-color-fg-secondary: #787878;
+  --ui-color-border: #000000;
+  --ui-color-border-secondary: #787878;
+
+  // "반전" 조합 — hover/selected 상태와 DetailPanel처럼
+  // "항상 반전된" 컴포넌트가 공통으로 참조하는 의미론적 토큰
+  --ui-color-fg-inverted: var(--ui-color-bg);
+  --ui-color-bg-inverted: var(--ui-color-fg);
+
+  --ui-border-width: #{figma(4)};
+  --ui-border-width-heavy: #{figma(2)};
+
+  // ===== Space scale =====
+  --ui-space-0: #{figma(0)};
+  --ui-space-1: #{figma(4)};
+  --ui-space-2: #{figma(8)};
+  --ui-space-4: #{figma(16)};
+
+  --ui-radius: #{figma(0)};
+
+  // 그림자는 이제 자체 값을 새로 정의하지 않고 space 스케일을 그대로 참조
+  --ui-shadow: var(--ui-space-2) var(--ui-space-2) 0 var(--ui-color-fg);
+  --ui-shadow-space: var(--ui-space-2);
+
+  // ===== Typography scale =====
+  --ui-font-mono: "JetBrainsMono Nerd Font Mono";
+  --ui-font-weight-bold: 700;
+  --ui-font-weight-secondary: 500;
+
+  --ui-font-size-lg: #{figma(32)}; // Bar
+  --ui-font-size-md: #{figma(24)}; // Panel 콘텐츠, 알림 앱 이름, sys 버튼/워크스페이스 제목
+  --ui-font-size-sm: #{figma(16)}; // 알림 본문, 워크스페이스 콘텐츠
+  --ui-line-height: #{figma(42)};
+
+  // ===== Layout =====
+  --ui-bar-height: #{figma(100)};
+  --ui-cell-padding: var(--ui-space-0) var(--ui-space-4);
+  --ui-cell-gap: #{figma(2)};
+
+  // 여러 오버레이 창(NotificationSidebar, SystemControl)이 공통으로 참조하는
+  // "카드형 오버레이 최대 높이" — 의도적으로 공유하는 값이라는 게 이름에서 드러남
+  --ui-overlay-max-height: #{figma(1644)};
+  --ui-overlay-padding: var(--ui-space-2);
+
+  // ===== Panel (DetailPanel) =====
+  --ui-panel-height: #{figma(92)};
+  --ui-panel-width: #{content-box-size(998, 0, 16)};
+  --ui-panel-padding: var(--ui-space-0) var(--ui-space-4);
+
+  // ===== Progress =====
+  --ui-progress-height: #{figma(8)};
+  --ui-progress-width: #{figma(800)};
+  --ui-progress-fill: #878787;
+  --ui-progress-empty: var(--ui-color-bg);
+
+  // ===== Noti =====
+  --ui-noti-height: #{content-box-size(72, 1, 4)};
+  --ui-noti-width: #{content-box-size(408, 1, 4)};
+  --ui-noti-list-width: #{figma(424)};
+
+  // ===== Sys =====
+  --ui-sys-option-button-height: #{tuned-size(40, 10)};
+  --ui-sys-option-button-width: #{content-box-size(150, 1, 0)};
+  --ui-sys-workspace-padding: var(--ui-space-2);
+  --ui-sys-workspace-height: #{figma(65)};
+  --ui-sys-workspace-width: #{figma(452)};
+}

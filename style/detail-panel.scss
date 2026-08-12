@@ -1,0 +1,44 @@
+// detail-panel.scss
+window.DetailPanel {
+  .panel {
+    min-height: var(--ui-panel-height);
+    min-width: var(--ui-panel-width);
+    // 더 이상 --ui-panel-bg/--ui-panel-text-color를 따로 안 만들고,
+    // "반전 상태"라는 의미를 그대로 표현
+    background: var(--ui-color-bg-inverted);
+    color: var(--ui-color-fg-inverted);
+    padding: var(--ui-panel-padding);
+    font-size: var(--ui-font-size-md);
+    font-family: var(--ui-font-mono);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  .panel > * {
+    margin: 0;
+  }
+
+  .progress-bar {
+    min-height: var(--ui-progress-height);
+    min-width: var(--ui-progress-width);
+
+    trough {
+      background: transparent;
+      border: none;
+      padding: 0;
+      min-height: var(--ui-progress-height);
+    }
+
+    block {
+      min-height: var(--ui-progress-height);
+      border: none;
+      border-radius: 0;
+    }
+
+    block.filled {
+      background: var(--ui-progress-fill);
+    }
+    block.empty {
+      background: var(--ui-progress-empty);
+    }
+  }
+}

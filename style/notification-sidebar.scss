@@ -1,0 +1,40 @@
+// notification-sidebar.scss
+window.NotificationSidebar {
+  background: transparent;
+  font-family: var(--ui-font-mono);
+
+  * {
+    margin: 0;
+  }
+
+  .noti-card {
+    background: var(--ui-color-bg);
+    box-shadow: var(--ui-shadow);
+    margin: 0 var(--ui-shadow-space) var(--ui-shadow-space) 0;
+  }
+
+  .noti-list {
+    min-height: var(--ui-overlay-max-height); // 공유 토큰, 의도적으로
+    min-width: var(--ui-noti-list-width);
+    padding: var(--ui-overlay-padding);
+  }
+
+  .noti {
+    padding: var(--ui-space-1);
+    border: 1px solid var(--ui-color-border-secondary);
+    min-height: var(--ui-noti-height);
+    min-width: var(--ui-noti-width);
+    color: var(--ui-color-fg);
+
+    .app-name {
+      font-size: var(--ui-font-size-md);
+      font-weight: var(--ui-font-weight-bold);
+    }
+
+    .content {
+      font-size: var(--ui-font-size-sm);
+      color: var(--ui-color-fg-secondary);
+      font-weight: var(--ui-font-weight-secondary);
+    }
+  }
+}

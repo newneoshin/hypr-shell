@@ -1,0 +1,25 @@
+// bar.scss
+window.Bar {
+  background: var(--ui-color-bg);
+  color: var(--ui-color-fg);
+  min-height: var(--ui-bar-height);
+  font-family: var(--ui-font-mono);
+  font-weight: var(--ui-font-weight-bold);
+  font-size: var(--ui-font-size-lg);
+  border-bottom: var(--ui-border-width) solid var(--ui-color-border);
+  border-radius: var(--ui-radius);
+
+  centerbox {
+    background: transparent;
+  }
+
+  .cell {
+    padding: var(--ui-cell-padding);
+
+    &:hover,
+    &.selected {
+      background: var(--ui-color-bg-inverted);
+      color: var(--ui-color-fg-inverted);
+    }
+  }
+}
