@@ -1,5 +1,4 @@
-import { createComputed, createState } from "gnim"
-import { fuzzyQuery } from "../../services/apps"
+import { createState } from "gnim"
 import Gdk from "gi://Gdk?version=4.0"
 import Overlay from "../../components/Overlay"
 import AppList from "./AppList"
@@ -7,7 +6,6 @@ import Gtk from "gi://Gtk?version=4.0"
 
 export default function AppDrawer(gdkmonitor: Gdk.Monitor) {
   const [query, setQuery] = createState("")
-  const results = createComputed(() => fuzzyQuery(query()))
 
   return (
     <Overlay
@@ -36,7 +34,7 @@ export default function AppDrawer(gdkmonitor: Gdk.Monitor) {
             })
           }}
         />
-        <AppList results={results} />
+        <AppList query={query} />
       </box>
     </Overlay>
   )
