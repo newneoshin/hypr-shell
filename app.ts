@@ -6,10 +6,12 @@ import DetailPanel from "./windows/detail-panel/DetailPanel"
 import NotificationSidebar from "./windows/notification-sidebar/NotificationSidebar"
 import SystemControl from "./windows/system-control/SystemControl"
 import { toggleOverlay, OverlayId } from "./services/barState"
+import AppDrawer from "./windows/app-drawer/AppDrawer"
 
 const overlayIds: Exclude<OverlayId, null>[] = [
   "notifications",
   "system-control",
+  "app-drawer",
 ]
 
 type WindowFactory = (gdkmonitor: Gdk.Monitor) => Gtk.Window
@@ -19,6 +21,7 @@ const windowFactories: WindowFactory[] = [
   DetailPanel,
   NotificationSidebar,
   SystemControl,
+  AppDrawer,
 ]
 
 const monitorWindows = new Map<Gdk.Monitor, Gtk.Window[]>()

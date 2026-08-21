@@ -1,0 +1,30 @@
+window.AppDrawer {
+  background: transparent;
+  font-family: var(--ui-font-mono);
+
+  * {
+    margin: 0;
+  }
+
+  .search {
+    background: var(--ui-color-bg-inverted);
+    color: var(--ui-color-fg-inverted);
+    border: none;
+    border-radius: var(--ui-radius);
+    box-shadow: none;
+    padding: var(--ui-cell-padding);
+    font-family: var(--ui-font-mono);
+    font-size: var(--ui-font-size-lg);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  .app-drawer-card {
+    background: var(--ui-color-bg);
+    box-shadow: var(--ui-shadow);
+    margin: 0 var(--ui-shadow-space) var(--ui-shadow-space) 0;
+  }
+
+  .app-cell {
+    background: var(--ui-color-bg);
+  }
+}
