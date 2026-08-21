@@ -1,5 +1,6 @@
 import GioUnix from "gi://GioUnix?version=2.0"
 import AstalNotifd from "gi://AstalNotifd?version=0.1"
+import AstalApps from "gi://AstalApps?version=0.1"
 
 export function resolveIcon(n: AstalNotifd.Notification) {
   if (n.image) {
@@ -21,4 +22,9 @@ export function resolveIcon(n: AstalNotifd.Notification) {
   }
 
   return { iconName: "dialog-information-symbolic" }
+}
+
+export function resolveAppIcon(app: AstalApps.Application) {
+  if (app.icon_name?.startsWith("/")) return { file: app.icon_name }
+  return { iconName: app.icon_name || "application-x-executable-symbolic" }
 }
