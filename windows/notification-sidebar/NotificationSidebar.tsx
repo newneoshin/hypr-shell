@@ -1,6 +1,5 @@
 import { Astal, Gdk } from "ags/gtk4"
 import { figma } from "../../utils/figma"
-import { openOverlay } from "../../services/barState"
 import { notiMap } from "../../services/notification"
 import NotiList from "./NotiList"
 import Overlay from "../../components/Overlay"
