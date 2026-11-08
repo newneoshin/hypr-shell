@@ -7,6 +7,7 @@ import NotificationSidebar from "./windows/notification-sidebar/NotificationSide
 import SystemControl from "./windows/system-control/SystemControl"
 import { toggleOverlay, OverlayId } from "./services/barState"
 import AppDrawer from "./windows/app-drawer/AppDrawer"
+import { createRoot } from "gnim"
 
 const overlayIds: Exclude<OverlayId, null>[] = [
   "notifications",
@@ -24,17 +25,25 @@ const windowFactories: WindowFactory[] = [
   AppDrawer,
 ]
 
-const monitorWindows = new Map<Gdk.Monitor, Gtk.Window[]>()
+// Each monitor's windows live in their own root scope. syncMonitors() also runs
+// from the notify::monitors signal (hotplug, resume from suspend), which is
+// outside main()'s tracking scope — without createRoot, gnim's <With>/onCleanup
+// throw "out of tracking context" there and the new monitor gets no windows.
+const monitorWindows = new Map<Gdk.Monitor, () => void>()
 
 function addMonitor(monitor: Gdk.Monitor) {
-  monitorWindows.set(
-    monitor,
-    windowFactories.map((create) => create(monitor)),
-  )
+  const dispose = createRoot((disposeScope) => {
+    const windows = windowFactories.map((create) => create(monitor))
+    return () => {
+      windows.forEach((win) => win.destroy())
+      disposeScope()
+    }
+  })
+  monitorWindows.set(monitor, dispose)
 }
 
 function removeMonitor(monitor: Gdk.Monitor) {
-  monitorWindows.get(monitor)?.forEach((win) => win.destroy())
+  monitorWindows.get(monitor)?.()
   monitorWindows.delete(monitor)
 }
 

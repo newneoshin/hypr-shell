@@ -31,8 +31,9 @@ export default function Workspaces() {
             setOpenOverlay(null)
           })
           self.connect("map", (self) => {
-            const child = self.get_child_at_index(focusedWorkspace().id - 1)
-            child?.grab_focus()
+            const focused = focusedWorkspace()
+            if (!focused) return
+            self.get_child_at_index(focused.id - 1)?.grab_focus()
           })
         }}
       >
