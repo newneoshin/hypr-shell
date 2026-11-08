@@ -12,7 +12,8 @@ import { createComputed } from "gnim"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
-  const ws = createComputed(() => `󰣇 ${focusedWorkspace().get_id()}`)
+  // focused_workspace is briefly null while monitors are added/removed (resume from suspend, hotplug)
+  const ws = createComputed(() => `󰣇 ${focusedWorkspace()?.get_id() ?? ""}`)
 
   return (
     <window
